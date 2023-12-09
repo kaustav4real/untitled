@@ -19,6 +19,11 @@ final ThemeData lightTheme=ThemeData(
       fontSize: 24,
       fontWeight: FontWeight.w700
     ),
+    bodyMedium: GoogleFonts.notoSans(
+      color: Colors.black54,
+      fontSize: 20,
+      fontWeight: FontWeight.w500
+    )
   ),
 );
 

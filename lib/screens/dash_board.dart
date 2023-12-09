@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled/components/dashboard_screen/dashboard_app_bar.dart';
+import 'package:untitled/components/dashboard_screen/no_classes_assigned_card.dart';
 import 'package:untitled/state_management/user_auth.dart';
 
 class DashBoard extends StatelessWidget {
@@ -19,6 +20,8 @@ class DashBoard extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
+              const NoClassesAssigned(),
+
               TextButton(
                 onPressed: () {
                   authController.logout();

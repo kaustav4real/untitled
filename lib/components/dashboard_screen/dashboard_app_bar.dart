@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/helpers/date_functions.dart';
+
 
 class DashBoardAppBar extends StatelessWidget {
   const DashBoardAppBar({super.key});
@@ -8,7 +8,6 @@ class DashBoardAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        boxShadow: [BoxShadow(color: Colors.transparent)],
         color: Colors.white,
       ),
       padding: const EdgeInsets.only(left: 15, right: 5, top: 5, bottom: 5),
