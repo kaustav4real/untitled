@@ -17,7 +17,13 @@ class AuthController extends GetxController {
 
   void _loadAuthStatus() {
     final d = getUserInfo();
-    isLoggedIn.value=d;
+    if(d.token=='')
+      {
+        isLoggedIn.value=false;
+      }
+    else{
+      isLoggedIn.value=true;
+    }
   }
 
   void login(UserLocalInfo info) {

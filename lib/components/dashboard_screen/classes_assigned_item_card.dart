@@ -58,7 +58,11 @@ class ClassAssignedCard extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  nextScreen(context, SemesterScreen(semester: schedule.semester));
+                  nextScreen(context, SemesterScreen(
+                      semester: schedule.semester.toString(),
+                      subjectID: schedule.subjectId,
+                  )
+                  );
                 },
                 icon: const Icon(
                   Icons.arrow_forward,

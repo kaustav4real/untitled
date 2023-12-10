@@ -1,88 +1,122 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/constants.dart';
-import 'package:untitled/messages.dart';
-import 'package:untitled/models/user_model.dart';
-import 'package:untitled/state_management/user_auth.dart';
 import 'package:get/get.dart';
-import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:untitled/models/user_model.dart';
+import 'dart:convert';
 
-class LoginForm extends StatelessWidget {
+import 'package:untitled/state_management/user_auth.dart';
+
+import '../../constants.dart';
+
+
+const String loginErrorMessage = 'Login failed!';
+const String unexpectedMessage = 'Unexpected error occurred!';
+
+class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final AuthController authController = Get.find<AuthController>();
-    TextEditingController emailController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
+  State<LoginForm> createState() => _LoginFormState();
+}
 
-    Future<void> login() async {
-      final Map<String, dynamic> data = {
-        'email': emailController.text,
-        'password': passwordController.text,
-      };
+class _LoginFormState extends State<LoginForm> {
+  final AuthController authController = Get.find<AuthController>();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
-      displaySnackBar(String message) {
-        final snackBar = SnackBar(content: Text(message));
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      }
+  bool passwordVisible = false;
 
-      final response = await http.post(
-        Uri.parse('$apiBaseUrl/auth/authenticate'),
-        body: jsonEncode(data),
-        headers: {'Content-Type': 'application/json'},
+  displaySnackBar(String message) {
+    final snackBar = SnackBar(content: Text(message));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  Future<void> login() async {
+
+
+    final Map<String, dynamic> data = {
+      'username': emailController.text,
+      'password': passwordController.text,
+    };
+
+
+
+    final response = await http.post(
+      Uri.parse('$apiBaseUrl/auth/authenticate'),
+      body: jsonEncode(data),
+      headers: {'Content-Type': 'application/json'},
+    );
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> responseData = json.decode(response.body);
+
+      String token = responseData['token'];
+      String name = responseData['name'];
+
+      authController.login(
+        UserLocalInfo(
+          userName: emailController.text,
+          fullName: name,
+          token: token,
+        ),
       );
 
-      if (response.statusCode == 200) {
-        Map<String, dynamic> responseData = json.decode(response.body);
-
-        // Extract values of "token" and "name" fields
-        String token = responseData['token'];
-        String name = responseData['name'];
-
-        authController.login(
-          UserLocalInfo(
-            userName: emailController.text,
-            fullName: name,
-            token: token,
-          ),
-        );
-      } else if (response.statusCode == 403) {
-        displaySnackBar(loginErrorMessage);
-      } else {
-        displaySnackBar(unexpectedMessage);
-      }
+      // Perform action after successful login
+      // For example: Redirect to a new screen or set user data in controller
+    } else if (response.statusCode == 403) {
+      displaySnackBar(loginErrorMessage);
+    } else {
+      displaySnackBar(unexpectedMessage);
     }
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width * 0.06),
+      padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.06),
       height: 300,
       child: Column(
         children: [
           TextFormField(
             controller: emailController,
+            style: Theme.of(context).textTheme.titleMedium,
             decoration: InputDecoration(
+
               border: OutlineInputBorder(
-                borderSide: BorderSide.none, // Set BorderSide to none
+                borderSide: BorderSide.none,
                 borderRadius: BorderRadius.circular(100),
               ),
               filled: true,
               fillColor: const Color(0XFFf0f1f4),
-              hintText: 'Email', // Use labelText instead of label
+              hintText: 'Username',
+              hintStyle: Theme.of(context).textTheme.labelMedium,
+              contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+
             ),
           ),
           const SizedBox(height: 30),
           TextFormField(
             controller: passwordController,
+            obscureText: !passwordVisible,
+            style: Theme.of(context).textTheme.titleMedium,
             decoration: InputDecoration(
               border: OutlineInputBorder(
-                borderSide: BorderSide.none, // Set BorderSide to none
+                borderSide: BorderSide.none,
                 borderRadius: BorderRadius.circular(100),
               ),
               filled: true,
               fillColor: const Color(0XFFf0f1f4),
-              hintText: 'Password', // Use labelText instead of label
+              hintText: 'Password',
+              hintStyle: Theme.of(context).textTheme.labelMedium,
+              contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+              suffixIcon: IconButton(
+                icon: Icon(passwordVisible ? Icons.visibility : Icons.visibility_off),
+                onPressed: () {
+                  setState(() {
+                    passwordVisible = !passwordVisible;
+                  });
+                },
+              ),
             ),
           ),
           const SizedBox(height: 50),
@@ -96,9 +130,9 @@ class LoginForm extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
               ),
-              child: const Text('Log In'),
+              child: Text('Log In', style: Theme.of(context).textTheme.titleMedium,),
             ),
-          )
+          ),
         ],
       ),
     );

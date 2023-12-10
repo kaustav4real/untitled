@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/components/global/next_screen.dart';
+import 'package:untitled/components/semester_attendance_screen/semester_attendance_functions.dart';
+import 'package:untitled/models/subject_attendance_model.dart';
 import 'package:untitled/screens/student_attendance_item_screen.dart';
 
 class SemesterAttendanceListItem extends StatelessWidget {
   final String studentName;
   final String rollNumber;
-  final String attendance;
+  final List < AttendanceDetailModel> attendanceList;
   const SemesterAttendanceListItem(
       {super.key,
       required this.rollNumber,
       required this.studentName,
-      required this.attendance});
+      required this.attendanceList,
+      }
+);
 
   @override
   Widget build(BuildContext context) {
+
     return Column(
       children: [
         GestureDetector(
@@ -22,7 +27,7 @@ class SemesterAttendanceListItem extends StatelessWidget {
                 context,
                 StudentsAttendanceItemScreen(
                   rollNumber: rollNumber,
-                  name: studentName,
+                  name: studentName, attendanceList: attendanceList,
                 ),
             );
           },
@@ -30,7 +35,7 @@ class SemesterAttendanceListItem extends StatelessWidget {
             title: Text(studentName),
             subtitle: Text(rollNumber),
             trailing: Text(
-              '$attendance%',
+              '${calculateAttendance(attendanceList)}%',
               style: Theme.of(context).textTheme.labelMedium,
             ),
           ),

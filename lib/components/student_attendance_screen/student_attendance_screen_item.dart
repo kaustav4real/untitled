@@ -1,30 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/helpers/date_functions.dart';
+import 'package:untitled/models/subject_attendance_model.dart';
 
-class Attendance {
-  DateTime date;
-  bool present;
-  Attendance({
-    required this.date,
-    required this.present,
-  });
-}
-
-List<Attendance> attendanceList = [
-  Attendance(date: DateTime(2023, 12, 1), present: true),
-  Attendance(date: DateTime(2023, 12, 2), present: false),
-  Attendance(date: DateTime(2023, 12, 3), present: true),
-  Attendance(date: DateTime(2023, 12, 4), present: false),
-  Attendance(date: DateTime(2023, 12, 5), present: true),
-  Attendance(date: DateTime(2023, 12, 6), present: false),
-  Attendance(date: DateTime(2023, 12, 7), present: true),
-  Attendance(date: DateTime(2023, 12, 8), present: true),
-  Attendance(date: DateTime(2023, 12, 9), present: true),
-  Attendance(date: DateTime(2023, 12, 10), present: false),
-];
 
 class StudentAttendanceLog extends StatelessWidget {
-  const StudentAttendanceLog({super.key});
+  final List<AttendanceDetailModel > attendanceList;
+  const StudentAttendanceLog({super.key, required this.attendanceList});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +25,7 @@ class StudentAttendanceLog extends StatelessWidget {
                         ? const Icon(Icons.check)
                         : const Icon(Icons.cancel),
                   ),
-                  const Divider(thickness: 0.3),
+                   Divider(thickness:0.5),
                 ],
               ),
             )

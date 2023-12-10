@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/components/global/next_screen.dart';
+import 'package:untitled/database/user_model_db__functions.dart';
+import 'package:untitled/screens/logout_screen.dart';
 
 
 class DashBoardAppBar extends StatelessWidget {
@@ -6,6 +9,7 @@ class DashBoardAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final  userInfo=getUserInfo();
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -21,16 +25,21 @@ class DashBoardAppBar extends StatelessWidget {
             children: [
               Text('WELCOME BACK', style: Theme.of(context).textTheme.titleSmall,),
               Text(
-                'DR RUPAM BARUAH',
+                userInfo.fullName,
                 style: Theme.of(context).textTheme.titleMedium,
                 textAlign: TextAlign.center,
               ),
             ],
           ),
-          const Padding(
-            padding: EdgeInsets.all(10),
-            child: Image(
-              image: AssetImage('assets/college_logo.png'),
+           Padding(
+            padding: const EdgeInsets.all(10),
+            child: GestureDetector(
+              onTap: (){
+                nextScreen(context, const LogoutScreen());
+              },
+              child: const Image(
+                image: AssetImage('assets/college_logo.png'),
+              ),
             ),
           ),
         ],

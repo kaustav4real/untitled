@@ -5,7 +5,8 @@ import 'package:untitled/helpers/date_functions.dart';
 
 class SemesterScreen extends StatelessWidget {
   final String semester;
-  const SemesterScreen({super.key, required this.semester});
+  final String subjectID;
+  const SemesterScreen({super.key, required this.semester, required this.subjectID});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class SemesterScreen extends StatelessWidget {
                 const SizedBox(height: 30),
                 Text('Attendance as of ${getTodayDate()}', style: Theme.of(context).textTheme.titleMedium,),
                 const SizedBox(height: 20),
-                const SemesterAttendanceLists(),
+                 SemesterAttendanceLists(subjectID: subjectID),
               ],
             ),
           )

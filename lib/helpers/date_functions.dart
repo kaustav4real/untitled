@@ -6,10 +6,11 @@ String getTodayDate() {
   return formattedDate;
 }
 
-String formatDateTime(DateTime dateTime) {
-  return DateFormat('ddMMM y').format(dateTime);
+String formatDateTime(String dateTime) {
+  DateTime parsedDate = DateTime.parse(dateTime);
+  return DateFormat('ddMMM y').format(parsedDate);
 }
-
-String getDayFromDate(DateTime dateTime) {
-  return DateFormat('EEEE').format(dateTime); // 'EEEE' gives the full day name
+String getDayFromDate(String dateTime) {
+  DateTime parsedDate = DateTime.parse(dateTime);
+  return DateFormat('EEEE').format(parsedDate); // 'EEEE' gives the full day name
 }

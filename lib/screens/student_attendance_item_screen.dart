@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/components/student_attendance_screen/student_attendance_screen_item.dart';
 import 'package:untitled/helpers/date_functions.dart';
+import 'package:untitled/models/subject_attendance_model.dart';
 
 class StudentsAttendanceItemScreen extends StatelessWidget {
   final String rollNumber;
   final String name;
+  final List < AttendanceDetailModel> attendanceList;
   const StudentsAttendanceItemScreen({
     super.key,
     required this.name,
     required this.rollNumber,
+    required this.attendanceList,
   });
 
   @override
@@ -33,7 +36,7 @@ class StudentsAttendanceItemScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 30),
-              const StudentAttendanceLog(),
+              StudentAttendanceLog(attendanceList: attendanceList),
             ],
           ),
         ),

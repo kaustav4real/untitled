@@ -1,55 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/components/semester_attendance_screen/semester_attendance_functions.dart';
 import 'package:untitled/components/semester_attendance_screen/semester_attendance_list_item.dart';
+import 'package:untitled/models/subject_attendance_model.dart';
 
-class StudentModel {
-  final String name;
-  final String rollNumber;
-  final String attendance;
+class SemesterAttendanceLists extends StatefulWidget {
+  final String subjectID;
+  const SemesterAttendanceLists({Key? key, required this.subjectID}) : super(key: key);
 
-  StudentModel({
-    required this.name,
-    required this.rollNumber,
-    required this.attendance,
-  });
+  @override
+  State<SemesterAttendanceLists> createState() => _SemesterAttendanceListsState();
 }
 
-List<StudentModel> model = [
-  StudentModel(
-      name: 'Kaustav Kakoty', rollNumber: '200710007026', attendance: '81'),
-  StudentModel(
-      name: 'Anurag Sahu', rollNumber: '200710007008', attendance: '87'),
-  StudentModel(
-      name: 'Nishit Bhardwaj', rollNumber: '200710007037', attendance: '82'),
-  StudentModel(
-      name: 'Zubayer Laskar Zidhan',
-      rollNumber: '200710007062',
-      attendance: '60'),
-  StudentModel(
-      name: 'Abdul Kadir Talukdar',
-      rollNumber: '200710007001',
-      attendance: '10'),
-];
+class _SemesterAttendanceListsState extends State<SemesterAttendanceLists> {
+  List<SubjectAttendanceModel> classAssignedList = [];
 
-class SemesterAttendanceLists extends StatelessWidget {
-  const SemesterAttendanceLists({super.key});
+  @override
+  void initState() {
+    super.initState();
+    fetchSubjects();
+  }
+
+  fetchSubjects() async {
+    List<SubjectAttendanceModel> fetchedList = await getSemesterAttendance(widget.subjectID);
+    setState(() {
+      classAssignedList = fetchedList;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
-        color: Colors.white
+        color: Colors.white,
       ),
-      padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
       child: Column(
-        children: model
+        children:classAssignedList.isEmpty ?
+        [Text('No attendnace taken')]: classAssignedList
             .map(
               (item) => SemesterAttendanceListItem(
-                rollNumber: item.rollNumber,
-                studentName: item.name,
-                attendance: item.attendance,
-              ),
-            )
+            rollNumber: item.rollNumber,
+            studentName: item.name,
+            attendanceList: item.attendance,
+          ),
+        )
             .toList(),
       ),
     );

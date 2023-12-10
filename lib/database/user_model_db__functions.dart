@@ -4,9 +4,14 @@ import 'package:untitled/models/user_model.dart';
 
 final Box box = Hive.box(userBox);
 
-bool getUserInfo() {
-  final userData = box.get(userAuthenticated, defaultValue: false);
-  return userData;
+UserLocalInfo getUserInfo() {
+  final userData = box.get(
+    userAuthenticated,
+    defaultValue: UserLocalInfo(
+      userName: '',
+      fullName: '',
+      token: '',
+    ),
+  );
+  return userData as UserLocalInfo;
 }
-
-
