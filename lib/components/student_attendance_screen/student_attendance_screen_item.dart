@@ -18,7 +18,7 @@ List<Attendance> attendanceList = [
   Attendance(date: DateTime(2023, 12, 5), present: true),
   Attendance(date: DateTime(2023, 12, 6), present: false),
   Attendance(date: DateTime(2023, 12, 7), present: true),
-  Attendance(date: DateTime(2023, 12, 8), present: false),
+  Attendance(date: DateTime(2023, 12, 8), present: true),
   Attendance(date: DateTime(2023, 12, 9), present: true),
   Attendance(date: DateTime(2023, 12, 10), present: false),
 ];
