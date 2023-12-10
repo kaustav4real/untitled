@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/components/global/next_screen.dart';
 import 'package:untitled/models/assigned_class_models.dart';
+import 'package:untitled/screens/semester_attendance_screen.dart';
 
 class ClassAssignedCard extends StatelessWidget {
   final ClassSchedule schedule;
@@ -32,7 +34,8 @@ class ClassAssignedCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(schedule.departmentName,
-                            style: Theme.of(context).textTheme.labelSmall),
+                            style: Theme.of(context).textTheme.labelSmall,
+                        ),
                         Text(
                           schedule.subjectName,
                           style: Theme.of(context).textTheme.titleMedium,
@@ -54,7 +57,9 @@ class ClassAssignedCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(100),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  nextScreen(context, SemesterScreen(semester: schedule.semester));
+                },
                 icon: const Icon(
                   Icons.arrow_forward,
                   color: Colors.white,
