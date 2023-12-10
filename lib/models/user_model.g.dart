@@ -17,9 +17,9 @@ class UserLocalInfoAdapter extends TypeAdapter<UserLocalInfo> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return UserLocalInfo(
-      userEmail: fields[0] as String,
-      session: fields[2] as String,
-      userName: fields[1] as String,
+      userName: fields[0] as String,
+      fullName: fields[1] as String,
+      token: fields[2] as String,
     );
   }
 
@@ -28,11 +28,11 @@ class UserLocalInfoAdapter extends TypeAdapter<UserLocalInfo> {
     writer
       ..writeByte(3)
       ..writeByte(0)
-      ..write(obj.userEmail)
-      ..writeByte(1)
       ..write(obj.userName)
+      ..writeByte(1)
+      ..write(obj.fullName)
       ..writeByte(2)
-      ..write(obj.session);
+      ..write(obj.token);
   }
 
   @override

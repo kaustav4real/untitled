@@ -8,16 +8,16 @@ final box = Hive.box(userBox);
 @HiveType(typeId: 1)
 class UserLocalInfo {
   @HiveField(0)
-  String userEmail;
-  @HiveField(1)
   String userName;
+  @HiveField(1)
+  String fullName;
   @HiveField(2)
-  String session;
+  String token;
 
   UserLocalInfo({
-    required this.userEmail,
-    required this.session,
     required this.userName,
+    required this.fullName,
+    required this.token,
   });
 
   Future<bool> storeUserInfo(UserLocalInfo user) async {
