@@ -3,8 +3,6 @@ import 'package:untitled/components/semester_attendance_screen/semester_attendan
 import 'package:untitled/helpers/date_functions.dart';
 
 
-
-
 class SemesterScreen extends StatelessWidget {
   final String semester;
   const SemesterScreen({super.key, required this.semester});
@@ -28,7 +26,6 @@ class SemesterScreen extends StatelessWidget {
                 Text('Attendance as of ${getTodayDate()}', style: Theme.of(context).textTheme.titleMedium,),
                 const SizedBox(height: 20),
                 const SemesterAttendanceLists(),
-
               ],
             ),
           )
