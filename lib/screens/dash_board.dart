@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:untitled/components/dashboard_screen/classes_assigned_posts.dart';
 import 'package:untitled/components/dashboard_screen/dashboard_app_bar.dart';
 import 'package:untitled/components/dashboard_screen/dashboard_functions.dart';
-import 'package:untitled/components/dashboard_screen/no_classes_assigned_card.dart';
 import 'package:untitled/components/global/padded_text.dart';
 import 'package:untitled/models/assigned_class_models.dart';
+
+import '../components/semester_attendance_screen/no_attendance_records.dart';
 
 class DashBoard extends StatefulWidget {
   const DashBoard({super.key});

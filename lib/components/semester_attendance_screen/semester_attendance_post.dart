@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/components/dashboard_screen/no_classes_assigned_card.dart';
 import 'package:untitled/components/semester_attendance_screen/semester_attendance_functions.dart';
 import 'package:untitled/components/semester_attendance_screen/semester_attendance_list_item.dart';
 import 'package:untitled/models/subject_attendance_model.dart';
@@ -37,7 +38,7 @@ class _SemesterAttendanceListsState extends State<SemesterAttendanceLists> {
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
       child: Column(
         children:classAssignedList.isEmpty ?
-        [Text('No attendnace taken')]: classAssignedList
+        [const NoAttendanceRecords()]: classAssignedList
             .map(
               (item) => SemesterAttendanceListItem(
             rollNumber: item.rollNumber,
