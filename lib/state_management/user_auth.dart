@@ -5,6 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:untitled/models/user_model.dart';
 
 final Box box=Hive.box(userBox);
+
 class AuthController extends GetxController {
 
   RxBool isLoggedIn = false.obs;

@@ -18,6 +18,4 @@ class ClassSchedule {
       semester: json['semester'] ?? 0,
     );
   }
-
-
 }

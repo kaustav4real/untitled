@@ -10,9 +10,8 @@ import 'package:untitled/screens/login_screen.dart';
 import 'package:untitled/state_management/user_auth.dart';
 import 'package:untitled/theme.dart';
 
-Future<void> main() async{
+Future<void> main() async {
   WidgetsFlutterBinding();
-
 
   await Hive.initFlutter();
 
@@ -28,18 +27,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final AuthController authController = Get.put(AuthController());
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: lightTheme,
       darkTheme: darkTheme,
-        home: Obx(() {
+      home: Obx(
+        () {
           if (authController.isLoggedIn.value) {
             return const DashBoard();
           } else {
             return const LoginScreen();
           }
-        }));
+        },
+      ),
+    );
   }
 }

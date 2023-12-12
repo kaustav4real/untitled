@@ -33,7 +33,6 @@ final ThemeData lightTheme=ThemeData(
       fontSize: 24,
       fontWeight: FontWeight.w700
     ),
-
   ),
 );
 

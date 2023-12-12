@@ -16,18 +16,19 @@ class DashBoard extends StatefulWidget {
 
 class _DashBoardState extends State<DashBoard> {
   List<ClassSchedule> classAssignedList = [];
+  bool isLoading = true; // Added loading state
 
   fetchSubjects() async {
     classAssignedList = await getSubjectsAssigned();
+    setState(() {
+      isLoading = false; // Set loading to false when data is fetched
+    });
   }
 
   @override
   void initState() {
-    // TODO: implement initState
-    setState(() {
-      fetchSubjects();
-    });
     super.initState();
+    fetchSubjects();
   }
 
   @override
@@ -38,7 +39,7 @@ class _DashBoardState extends State<DashBoard> {
           preferredSize: Size(MediaQuery.of(context).size.width, 75),
           child: const DashBoardAppBar(),
         ),
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: Colors.grey[300],
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,9 +47,14 @@ class _DashBoardState extends State<DashBoard> {
               const SizedBox(height: 30),
               const PaddedText(text: 'YOUR CLASSES'),
               const SizedBox(height: 30),
-              classAssignedList.isEmpty
-                  ? const NoClassesAssigned()
-                  : ClassesAssignedPost(schedule: classAssignedList)
+              isLoading
+                  ? const Center(
+                      child:
+                          CircularProgressIndicator(),
+              ) // Show loading indicator
+                  : classAssignedList.isEmpty
+                      ? const NoClassesAssigned()
+                      : ClassesAssignedPost(schedule: classAssignedList)
             ],
           ),
         ),

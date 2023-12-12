@@ -8,7 +8,7 @@ String getTodayDate() {
 
 String formatDateTime(String dateTime) {
   DateTime parsedDate = DateTime.parse(dateTime);
-  return DateFormat('ddMMM y').format(parsedDate);
+  return DateFormat('dd MMM y').format(parsedDate);
 }
 String getDayFromDate(String dateTime) {
   DateTime parsedDate = DateTime.parse(dateTime);
