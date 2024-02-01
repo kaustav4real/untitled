@@ -18,7 +18,7 @@ class SemesterAttendanceListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    attendanceList.sort((a, b) => a.date.compareTo(b.date));
     return Column(
       children: [
         GestureDetector(

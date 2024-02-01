@@ -25,7 +25,7 @@ class StudentAttendanceLog extends StatelessWidget {
                         ? const Icon(Icons.check)
                         : const Icon(Icons.cancel),
                   ),
-                   Divider(thickness:0.5),
+                   const Divider(thickness:0.5),
                 ],
               ),
             )

@@ -25,14 +25,13 @@ Future<List<ClassSchedule>> getSubjectsAssigned() async {
 
       return classSchedules;
     } else {
-      // If the request was not successful, handle the error accordingly
       print('Request failed with status: ${response.statusCode}');
-      return []; // or throw an exception
+      return [];
     }
   } catch (error) {
     // Handle exceptions that might occur during the HTTP request
     print('Error fetching data: $error');
-    return []; // or throw an exception
+    return [];
   }
 }
 
