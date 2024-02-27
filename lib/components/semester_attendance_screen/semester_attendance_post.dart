@@ -5,6 +5,9 @@ import 'package:untitled/components/semester_attendance_screen/semester_attendan
 import 'package:untitled/components/semester_attendance_screen/semester_attendance_list_item.dart';
 import 'package:untitled/models/subject_attendance_model.dart';
 import 'package:untitled/screens/nc_list_screen.dart';
+import 'dart:io';
+
+import 'package:pdf/widgets.dart' as pw;
 
 import '../../screens/dc_list_screen.dart';
 
@@ -38,6 +41,21 @@ class _SemesterAttendanceListsState extends State<SemesterAttendanceLists> {
 
       isLoading = false; // Set loading to false when data is fetched
     });
+  }
+
+  Future<void> createPDF() async {
+    final pdf = pw.Document();
+
+    pdf.addPage(
+      pw.Page(
+        build: (pw.Context context) => pw.Center(
+          child: pw.Text('Hello World!'),
+        ),
+      ),
+    );
+
+    final file = File('example.pdf');
+    await file.writeAsBytes(await pdf.save());
   }
 
   @override
