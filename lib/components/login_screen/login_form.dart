@@ -25,6 +25,7 @@ class _LoginFormState extends State<LoginForm> {
   TextEditingController passwordController = TextEditingController();
 
   bool passwordVisible = false;
+  bool loading=false;
 
   displaySnackBar(String message) {
     final snackBar = SnackBar(content: Text(message));
@@ -32,20 +33,21 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   Future<void> login() async {
-
-
+    setState(() {
+      loading=true;
+    });
     final Map<String, dynamic> data = {
       'username': emailController.text,
       'password': passwordController.text,
     };
-
-
 
     final response = await http.post(
       Uri.parse('$apiBaseUrl/auth/authenticate'),
       body: jsonEncode(data),
       headers: {'Content-Type': 'application/json'},
     );
+
+    loading=false;
 
     if (response.statusCode == 200) {
       Map<String, dynamic> responseData = json.decode(response.body);
@@ -74,7 +76,6 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.06),
-      height: 300,
       child: Column(
         children: [
           TextFormField(
@@ -120,6 +121,8 @@ class _LoginFormState extends State<LoginForm> {
             ),
           ),
           const SizedBox(height: 50),
+          loading? const CircularProgressIndicator():const SizedBox.shrink(),
+          const SizedBox(height: 20ex:),
           SizedBox(
             height: 55,
             width: MediaQuery.of(context).size.width,
