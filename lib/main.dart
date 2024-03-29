@@ -4,7 +4,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:get/get.dart';
 import 'package:untitled/database/box_and_key_names.dart';
 import 'package:untitled/models/user_model.dart';
-import 'package:untitled/screens/dash_board.dart';
+import 'package:untitled/screens/main_navigation_screen.dart';
+import 'package:untitled/screens/view_subject_screen.dart';
 
 import 'package:untitled/screens/login_screen.dart';
 import 'package:untitled/state_management/user_auth.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
       home: Obx(
         () {
           if (authController.isLoggedIn.value) {
-            return const DashBoard();
+            return const MainNavigationScreen();
           } else {
             return const LoginScreen();
           }

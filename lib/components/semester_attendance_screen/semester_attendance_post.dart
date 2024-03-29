@@ -71,14 +71,18 @@ class _SemesterAttendanceListsState extends State<SemesterAttendanceLists> {
                     width: 100,
                     height: 50,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.orangeAccent),
+                      borderRadius: BorderRadius.circular(10),
+                      color: const Color(0XFFe1af16),
+                    ),
                     child: TextButton(
                       onPressed: () {
                         nextScreen(
                             context, NCListScreen(dcList: classAssignedList));
                       },
-                      child: const Text('NC List',style: TextStyle(color: Colors.black),),
+                      child: const Text(
+                        'NC List',
+                        style: TextStyle(color: Colors.black),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 20),
@@ -86,14 +90,20 @@ class _SemesterAttendanceListsState extends State<SemesterAttendanceLists> {
                     width: 100,
                     height: 50,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.redAccent),
+                      borderRadius: BorderRadius.circular(10),
+                      color: const Color(0XFF991111),
+                    ),
                     child: TextButton(
                       onPressed: () {
                         nextScreen(
                             context, DCListScreen(dcList: classAssignedList));
                       },
-                      child: const Text('DC List',style: TextStyle(color: Colors.black)),
+                      child: const Text(
+                        'DC List',
+                        style: TextStyle(
+                          color: Color(0XFFf3f6ed),
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -101,8 +111,8 @@ class _SemesterAttendanceListsState extends State<SemesterAttendanceLists> {
               const SizedBox(height: 20),
               Container(
                 decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
                 ),
                 padding: const EdgeInsets.all(15),
                 child: Column(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/components/dashboard_screen/classes_assigned_posts.dart';
-import 'package:untitled/components/dashboard_screen/dashboard_app_bar.dart';
 import 'package:untitled/components/dashboard_screen/dashboard_functions.dart';
 import 'package:untitled/components/global/padded_text.dart';
 import 'package:untitled/models/assigned_class_models.dart';
@@ -35,10 +34,6 @@ class _DashBoardState extends State<DashBoard> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size(MediaQuery.of(context).size.width, 75),
-          child: const DashBoardAppBar(),
-        ),
         backgroundColor: Colors.grey[300],
         body: SingleChildScrollView(
           child: Column(
@@ -49,12 +44,13 @@ class _DashBoardState extends State<DashBoard> {
               const SizedBox(height: 30),
               isLoading
                   ? const Center(
-                      child:
-                          CircularProgressIndicator(),
-              ) // Show loading indicator
+                      child: CircularProgressIndicator(),
+                    ) // Show loading indicator
                   : classAssignedList.isEmpty
                       ? const NoClassesAssigned()
-                      : ClassesAssignedPost(schedule: classAssignedList)
+                      : ClassesAssignedPost(
+                          schedule: classAssignedList,
+                        )
             ],
           ),
         ),

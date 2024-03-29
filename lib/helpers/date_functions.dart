@@ -6,6 +6,12 @@ String getTodayDate() {
   return formattedDate;
 }
 
+String getDateYYYYMMDD(){
+  DateTime now = DateTime.now();
+  String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+  return formattedDate;
+}
+
 String formatDateTime(String dateTime) {
   DateTime parsedDate = DateTime.parse(dateTime);
   return DateFormat('dd MMM y').format(parsedDate);

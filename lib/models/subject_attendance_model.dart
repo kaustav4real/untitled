@@ -25,6 +25,8 @@ class SubjectAttendanceModel {
     required this.attendance,
   });
 
+
+
   factory SubjectAttendanceModel.fromJson(Map<String, dynamic> json) {
     return SubjectAttendanceModel(
       name: json['name'] ?? '',
