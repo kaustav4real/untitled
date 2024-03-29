@@ -122,7 +122,7 @@ class _LoginFormState extends State<LoginForm> {
           ),
           const SizedBox(height: 50),
           loading? const CircularProgressIndicator():const SizedBox.shrink(),
-          const SizedBox(height: 20ex:),
+          const SizedBox(height: 20),
           SizedBox(
             height: 55,
             width: MediaQuery.of(context).size.width,
