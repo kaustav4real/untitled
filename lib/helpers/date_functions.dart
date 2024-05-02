@@ -6,6 +6,11 @@ String getTodayDate() {
   return formattedDate;
 }
 
+String getDateInYYYYMMDDFromArgument(DateTime dateTime){
+  String formattedDate = DateFormat('yyyy-MM-dd').format(dateTime);
+  return formattedDate;
+}
+
 String getDateYYYYMMDD(){
   DateTime now = DateTime.now();
   String formattedDate = DateFormat('yyyy-MM-dd').format(now);

@@ -37,6 +37,10 @@ class _TakeAttendanceScreenState extends State<TakeAttendanceScreen> {
 
   Future<void> fetchStudentsList() async {
     try {
+      /*final response = await http
+          .get(Uri.parse('$url/${widget.subjectID}/${widget.date}'), headers: {
+        'Authorization': 'Bearer ${info.token}',
+      });*/
       final response = await http
           .get(Uri.parse('$url/${widget.subjectID}/2024-01-22'), headers: {
         'Authorization': 'Bearer ${info.token}',
@@ -51,6 +55,7 @@ class _TakeAttendanceScreenState extends State<TakeAttendanceScreen> {
           fetchedList = attendanceList;
           loading = false;
         });
+        print(fetchedList);
       } else {
         handleErrors('Failed to fetch attendance data');
       }
@@ -107,6 +112,7 @@ class _TakeAttendanceScreenState extends State<TakeAttendanceScreen> {
             onTap: () async {
               await endAttendanceHandler();
             },
+
             child: Container(
               height: MediaQuery.of(context).size.width * 0.15,
               width: MediaQuery.of(context).size.width,

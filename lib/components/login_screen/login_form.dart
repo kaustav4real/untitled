@@ -47,7 +47,9 @@ class _LoginFormState extends State<LoginForm> {
       headers: {'Content-Type': 'application/json'},
     );
 
-    loading=false;
+    setState(() {
+      loading=false;
+    });
 
     if (response.statusCode == 200) {
       Map<String, dynamic> responseData = json.decode(response.body);

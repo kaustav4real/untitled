@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 void nextScreen(BuildContext context, Widget nextScreenWidget){
   Navigator.push(
     context,
