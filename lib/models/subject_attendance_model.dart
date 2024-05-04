@@ -1,16 +1,19 @@
 class AttendanceDetailModel {
   String date;
   bool present;
+  int classNumber;
 
   AttendanceDetailModel({
     required this.date,
     required this.present,
+    required this.classNumber,
   });
 
   factory AttendanceDetailModel.fromJson(Map<String, dynamic> json) {
     return AttendanceDetailModel(
       date: json['date'] ?? '',
       present: json['present'] ?? false,
+      classNumber:json['classNumber']??1
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:untitled/components/main_navigation_screen/dashboard_item.dart';
 import 'package:untitled/components/main_navigation_screen/dashboard_list.dart';
 import 'package:untitled/screens/assign_proxy_screen.dart';
+import 'package:untitled/screens/subjects_for_attendance_view.dart';
 import 'package:untitled/screens/view_subject_screen.dart';
 
 import '../components/dashboard_screen/dashboard_app_bar.dart';
@@ -32,7 +33,7 @@ class MainNavigationScreen extends StatelessWidget {
                         id: 1,
                         icon: Icons.book,
                         name: 'Subjects',
-                        child: const DashBoard(),
+                        child:const SubjectsForAttendanceView(),
                       ),
                     ),
                     DashBoardItem(

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -15,8 +16,15 @@ import '../components/global/next_screen.dart';
 
 class TakeAttendanceScreen extends StatefulWidget {
   final String subjectID, date;
+  final int classNumber;
+
   const TakeAttendanceScreen(
-      {Key? key, required this.subjectID, required this.date})
+      {Key? key,
+        required this.subjectID,
+        required this.date,
+        required this.classNumber,
+
+      })
       : super(key: key);
 
   @override
@@ -29,7 +37,7 @@ class _TakeAttendanceScreenState extends State<TakeAttendanceScreen> {
   List<SubjectAttendanceModel> fetchedList = [];
 
   static const String url = '$apiBaseUrl/attendance/details';
-  static const String endAttendanceUrl='$apiBaseUrl/attendance/endAttendance';
+  static const String endAttendanceUrl = '$apiBaseUrl/attendance/endAttendance';
 
   void handleErrors(String message) {
     showCustomSnackBar(context, message);
@@ -37,14 +45,13 @@ class _TakeAttendanceScreenState extends State<TakeAttendanceScreen> {
 
   Future<void> fetchStudentsList() async {
     try {
-      /*final response = await http
-          .get(Uri.parse('$url/${widget.subjectID}/${widget.date}'), headers: {
-        'Authorization': 'Bearer ${info.token}',
-      });*/
-      final response = await http
-          .get(Uri.parse('$url/${widget.subjectID}/2024-01-22'), headers: {
-        'Authorization': 'Bearer ${info.token}',
-      });
+
+      final response = await http.get(
+          Uri.parse(
+              '$url/${widget.subjectID}/${widget.date}/${widget.classNumber}'),
+          headers: {
+            'Authorization': 'Bearer ${info.token}',
+          });
       if (response.statusCode == 200) {
         final jsonResponse = json.decode(response.body) as List<dynamic>;
         List<SubjectAttendanceModel> attendanceList = jsonResponse
@@ -64,7 +71,7 @@ class _TakeAttendanceScreenState extends State<TakeAttendanceScreen> {
     }
   }
 
-  onSuccessRedirect(){
+  onSuccessRedirect() {
     Navigator.pop(context);
   }
 
@@ -72,7 +79,8 @@ class _TakeAttendanceScreenState extends State<TakeAttendanceScreen> {
     try {
       UserLocalInfo info = getUserInfo();
 
-      final response = await http.post(Uri.parse(endAttendanceUrl),
+      final response = await http.post(
+        Uri.parse(endAttendanceUrl),
         headers: {
           'Authorization': 'Bearer ${info.token}',
         },
@@ -89,11 +97,26 @@ class _TakeAttendanceScreenState extends State<TakeAttendanceScreen> {
     }
   }
 
+  late Timer _timer;
+
   @override
   void initState() {
     super.initState();
     info = getUserInfo();
     fetchStudentsList();
+
+    // Start a timer to call fetchStudentsList every 15 seconds after it has been initially loaded
+    _timer = Timer.periodic(const Duration(seconds: 15), (timer) {
+      if (!loading) {
+        fetchStudentsList();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel(); // Cancel the timer when the widget is disposed
+    super.dispose();
   }
 
   @override
@@ -112,7 +135,6 @@ class _TakeAttendanceScreenState extends State<TakeAttendanceScreen> {
             onTap: () async {
               await endAttendanceHandler();
             },
-
             child: Container(
               height: MediaQuery.of(context).size.width * 0.15,
               width: MediaQuery.of(context).size.width,
@@ -130,30 +152,32 @@ class _TakeAttendanceScreenState extends State<TakeAttendanceScreen> {
             ),
           ),
           body: SingleChildScrollView(
-            child: loading
-                ? SizedBox(
-                    height: MediaQuery.of(context).size.height,
-                    child: const Center(
-                      child: CircularProgressIndicator(),
+            child: SizedBox(
+              child: loading
+                  ? SizedBox(
+                height: MediaQuery.of(context).size.height,
+                child: const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              )
+                  : fetchedList.isEmpty
+                  ? const NoAttendanceRecords()
+                  : Container(
+                color: Colors.white,
+                padding: const EdgeInsets.all(15),
+                child: Column(
+                  children: fetchedList
+                      .map(
+                        (e) => LiveAttendanceItem(
+                      rollNumber: e.rollNumber,
+                      studentName: e.name,
+                      attendanceList: e.attendance,
                     ),
                   )
-                : fetchedList.isEmpty
-                    ? const NoAttendanceRecords()
-                    : Container(
-                        color: Colors.white,
-                        padding: const EdgeInsets.all(15),
-                        child: Column(
-                          children: fetchedList
-                              .map(
-                                (e) => LiveAttendanceItem(
-                                  rollNumber: e.rollNumber,
-                                  studentName: e.name,
-                                  attendanceList: e.attendance,
-                                ),
-                              )
-                              .toList(),
-                        ),
-                      ),
+                      .toList(),
+                ),
+              ),
+            )
           ),
         ),
       ),

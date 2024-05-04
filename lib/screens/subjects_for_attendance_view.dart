@@ -3,19 +3,17 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:untitled/components/dashboard_screen/classes_assigned_posts.dart';
 import 'package:untitled/components/dashboard_screen/dashboard_functions.dart';
 
-import 'package:untitled/components/global/padded_text.dart';
 import 'package:untitled/models/assigned_class_models.dart';
 
-import '../components/semester_attendance_screen/no_attendance_records.dart';
-
-class DashBoard extends StatefulWidget {
-  const DashBoard({super.key});
+class SubjectsForAttendanceView extends StatefulWidget {
+  const SubjectsForAttendanceView({super.key});
 
   @override
-  State<DashBoard> createState() => _DashBoardState();
+  State<SubjectsForAttendanceView> createState() =>
+      _SubjectsForAttendanceViewState();
 }
 
-class _DashBoardState extends State<DashBoard> {
+class _SubjectsForAttendanceViewState extends State<SubjectsForAttendanceView> {
   late AllClassScheduleDTO allClasses;
   bool isLoading = true; // Added loading state
 
@@ -58,19 +56,11 @@ class _DashBoardState extends State<DashBoard> {
                   children: [
                     const SizedBox(height: 30),
                     allClasses.ownSubjects.isNotEmpty
-                        ? ClassesAssignedPost(schedule: allClasses.ownSubjects)
+                        ? ViewAttendanceForASubjectPost(schedule: allClasses.ownSubjects)
                         : const Center(
                             child: Text('No classes hae been assigned to you'),
                           ),
-                    const SizedBox(height: 30),
-                    allClasses.assignedSubjects.isNotEmpty
-                        ? const PaddedText(text: 'PROXY CLASSES')
-                        : const SizedBox.shrink(),
-                    const SizedBox(height: 30),
-                    ClassesAssignedPost(
-                      schedule: allClasses.assignedSubjects,
-                    )
-                  ],
+                                      ],
                 ),
         ),
       ),

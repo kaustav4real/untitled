@@ -11,7 +11,23 @@ class ClassesAssignedPost extends StatelessWidget {
     return Column(
       children: schedule
           .map((classAssignedItem) =>
-          ClassAssignedCard(schedule: classAssignedItem))
+          ClassAssignedCard(schedule: classAssignedItem, proxy: classAssignedItem.proxy,))
+          .toList(),
+    );
+  }
+}
+
+
+class ViewAttendanceForASubjectPost extends StatelessWidget {
+  final List<ClassSchedule> schedule;
+  const ViewAttendanceForASubjectPost({super.key, required this.schedule});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: schedule
+          .map((classAssignedItem) =>
+          CardForViewingAttendanceOnly(schedule: classAssignedItem))
           .toList(),
     );
   }

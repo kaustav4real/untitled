@@ -16,8 +16,12 @@ import '../models/user_model.dart';
 class SemesterScreen extends StatefulWidget {
   final String semester;
   final String subjectID;
+  final bool proxy;
   const SemesterScreen(
-      {super.key, required this.semester, required this.subjectID});
+      {super.key,
+      required this.semester,
+      required this.subjectID,
+      required this.proxy});
 
   @override
   State<SemesterScreen> createState() => _SemesterScreenState();
@@ -28,14 +32,13 @@ class _SemesterScreenState extends State<SemesterScreen> {
   Widget build(BuildContext context) {
     String url = '$apiBaseUrl/attendance/takeAttendance';
 
-    bool loading = false;
-
-    reDirectOnSuccess(String date) {
+    reDirectOnSuccess(String subjectID, String date, int classNumber) {
       nextScreen(
         context,
         TakeAttendanceScreen(
-          subjectID: widget.subjectID,
+          subjectID: subjectID,
           date: date,
+          classNumber: classNumber,
         ),
       );
     }
@@ -45,33 +48,40 @@ class _SemesterScreenState extends State<SemesterScreen> {
     }
 
     takeAttendanceHandler() async {
-      setState(() {
-        loading = true;
-      });
+      setState(() {});
       try {
         String date = getDateYYYYMMDD();
         UserLocalInfo info = getUserInfo();
         final httpBody = jsonEncode({
           'subjectID': widget.subjectID,
           'date': date,
-          'proxy': false,
+          'proxy': widget.proxy,
         });
 
-        final response = await http.post(Uri.parse(url),
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer ${info.token}',
-            },
-            body: httpBody,
+        final response = await http.post(
+          Uri.parse(url),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ${info.token}',
+          },
+          body: httpBody,
         );
 
+        print(jsonDecode(response.body));
+
         if (response.statusCode == 200) {
-          reDirectOnSuccess(date);
+          final jsonData = jsonDecode(response.body)['data'];
+          reDirectOnSuccess(
+            jsonData['subjectID'],
+            jsonData['date'],
+            jsonData['classNumber'],
+          );
           return;
         } else {
           handleErrors('Unknown error has occurred');
         }
       } catch (error) {
+        print(error);
         handleErrors(error.toString());
       }
     }

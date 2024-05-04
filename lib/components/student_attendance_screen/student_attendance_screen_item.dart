@@ -19,6 +19,7 @@ class StudentAttendanceLog extends StatelessWidget {
               (e) => Column(
                 children: [
                   ListTile(
+                    leading:Text('Class ${e.classNumber}'),
                     title: Text(formatDateTime(e.date)),
                     subtitle: Text(getDayFromDate(e.date)),
                     trailing: e.present

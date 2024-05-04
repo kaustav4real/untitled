@@ -35,7 +35,7 @@ class SemesterAttendanceListItem extends StatelessWidget {
             title: Text(studentName),
             subtitle: Text(rollNumber),
             trailing: Text(
-              '${calculateAttendance(attendanceList)}%',
+              '${calculateAttendance(attendanceList).toStringAsFixed(1)}%',
               style: Theme.of(context).textTheme.labelMedium,
             ),
           ),

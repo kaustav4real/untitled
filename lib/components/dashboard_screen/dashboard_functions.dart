@@ -7,31 +7,36 @@ import 'package:untitled/models/user_model.dart';
 
 const getSubjectsUrl = '$apiBaseUrl/teachers/details';
 
-Future<List<ClassSchedule>> getSubjectsAssigned() async {
+Future<AllClassScheduleDTO> getSubjectsAssigned() async {
   UserLocalInfo info = getUserInfo();
+  List<ClassSchedule> ownSubjects = [];
+  List<ClassSchedule> assignedSubjects = [];
   try {
     final response = await http.get(
       Uri.parse('$getSubjectsUrl/${info.userName}'),
       headers: {
-        'Authorization': 'Bearer ${info.token}', // Include the bearer token here
+        'Authorization':
+            'Bearer ${info.token}', // Include the bearer token here
       },
     );
     if (response.statusCode == 200) {
-      // Parse JSON response
-      final jsonResponse = json.decode(response.body) as List<dynamic>;
-      List<ClassSchedule> classSchedules = jsonResponse
-          .map((map) => ClassSchedule.fromJson(map))
-          .toList();
+      final jsonResponse = json.decode(response.body) as Map<String, dynamic>;
 
-      return classSchedules;
+      List<dynamic> ownSubjectsJson = jsonResponse['ownSubjects'];
+      List<dynamic> assignedSubjectsJson = jsonResponse['assignedSubjects'];
+
+      List<ClassSchedule> ownSubjects = ownSubjectsJson.map((json) => ClassSchedule.fromJson(json)).toList();
+      List<ClassSchedule> assignedSubjects = assignedSubjectsJson.map((json) => ClassSchedule.fromJson(json)).toList();
+
+      return AllClassScheduleDTO(
+          ownSubjects: ownSubjects, assignedSubjects: assignedSubjects);
     } else {
       print('Request failed with status: ${response.statusCode}');
-      return [];
+      return AllClassScheduleDTO(ownSubjects: [], assignedSubjects: []);
     }
   } catch (error) {
     // Handle exceptions that might occur during the HTTP request
     print('Error fetching data: $error');
-    return [];
+    return AllClassScheduleDTO(ownSubjects: [], assignedSubjects: []);
   }
 }
-
