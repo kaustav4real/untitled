@@ -21,6 +21,7 @@ class _DashBoardState extends State<DashBoard> {
 
   fetchSubjects() async {
     final data = await getSubjectsAssigned();
+    print('Classes are ${data.assignedSubjects}');
     setState(() {
       allClasses = data;
     });

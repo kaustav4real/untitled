@@ -18,14 +18,12 @@ class TakeAttendanceScreen extends StatefulWidget {
   final String subjectID, date;
   final int classNumber;
 
-  const TakeAttendanceScreen(
-      {Key? key,
-        required this.subjectID,
-        required this.date,
-        required this.classNumber,
-
-      })
-      : super(key: key);
+  const TakeAttendanceScreen({
+    Key? key,
+    required this.subjectID,
+    required this.date,
+    required this.classNumber,
+  }) : super(key: key);
 
   @override
   State<TakeAttendanceScreen> createState() => _TakeAttendanceScreenState();
@@ -45,7 +43,6 @@ class _TakeAttendanceScreenState extends State<TakeAttendanceScreen> {
 
   Future<void> fetchStudentsList() async {
     try {
-
       final response = await http.get(
           Uri.parse(
               '$url/${widget.subjectID}/${widget.date}/${widget.classNumber}'),
@@ -60,6 +57,11 @@ class _TakeAttendanceScreenState extends State<TakeAttendanceScreen> {
 
         setState(() {
           fetchedList = attendanceList;
+          // fetchedList = [SubjectAttendanceModel(
+          //   name: 'Kla',
+          //   rollNumber: 'Kla',
+          //   attendance: [AttendanceDetailModel(date: 'kla', present: true, classNumber: 1)]
+          // )];
           loading = false;
         });
         print(fetchedList);
@@ -122,63 +124,74 @@ class _TakeAttendanceScreenState extends State<TakeAttendanceScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: RefreshIndicator(
-        onRefresh: () async {
-          fetchStudentsList();
-        },
-        child: Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: const Text('Taking Attendance'),
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title:  Text(
+              'Taking Attendance',
+            style: GoogleFonts.openSans(
+              fontSize: MediaQuery.of(context).size.width*0.046
+            ),
           ),
-          bottomSheet: GestureDetector(
-            onTap: () async {
-              await endAttendanceHandler();
-            },
-            child: Container(
-              height: MediaQuery.of(context).size.width * 0.15,
-              width: MediaQuery.of(context).size.width,
-              decoration: const BoxDecoration(
-                color: Color(0XFF991111),
-              ),
-              child: Center(
-                child: Text(
-                  'End Attendance',
-                  style: GoogleFonts.notoSans(
-                      color: const Color(0XFFf3f6ed),
-                      fontWeight: FontWeight.w500),
-                ),
+        ),
+        bottomSheet: GestureDetector(
+          onTap: () async {
+            await endAttendanceHandler();
+          },
+          child: Container(
+            height: MediaQuery.of(context).size.width * 0.15,
+            width: MediaQuery.of(context).size.width,
+            decoration: const BoxDecoration(
+              color: Color(0XFF991111),
+            ),
+            child: Center(
+              child: Text(
+                'End Attendance',
+                style: GoogleFonts.notoSans(
+                    color: const Color(0XFFf3f6ed),
+                    fontWeight: FontWeight.w500),
               ),
             ),
           ),
-          body: SingleChildScrollView(
-            child: SizedBox(
-              child: loading
-                  ? SizedBox(
-                height: MediaQuery.of(context).size.height,
-                child: const Center(
-                  child: CircularProgressIndicator(),
+        ),
+        body: RefreshIndicator(
+          onRefresh: () async {
+            await fetchStudentsList();
+          },
+          child: fetchedList.isEmpty
+              ? const Center(
+                  child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircularProgressIndicator(),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Text(
+                        'No attendance record has been found yet.',
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  ),
+                ))
+              : ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: fetchedList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final attendance = fetchedList[index];
+                    return Container(
+                      color: Colors.white,
+                      padding: const EdgeInsets.all(15),
+                      child: LiveAttendanceItem(
+                        rollNumber: attendance.rollNumber,
+                        studentName: attendance.name,
+                        attendanceList: attendance.attendance,
+                      ),
+                    );
+                  },
                 ),
-              )
-                  : fetchedList.isEmpty
-                  ? const NoAttendanceRecords()
-                  : Container(
-                color: Colors.white,
-                padding: const EdgeInsets.all(15),
-                child: Column(
-                  children: fetchedList
-                      .map(
-                        (e) => LiveAttendanceItem(
-                      rollNumber: e.rollNumber,
-                      studentName: e.name,
-                      attendanceList: e.attendance,
-                    ),
-                  )
-                      .toList(),
-                ),
-              ),
-            )
-          ),
         ),
       ),
     );

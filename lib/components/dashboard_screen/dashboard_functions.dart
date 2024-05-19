@@ -21,7 +21,6 @@ Future<AllClassScheduleDTO> getSubjectsAssigned() async {
     );
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body) as Map<String, dynamic>;
-
       List<dynamic> ownSubjectsJson = jsonResponse['ownSubjects'];
       List<dynamic> assignedSubjectsJson = jsonResponse['assignedSubjects'];
 

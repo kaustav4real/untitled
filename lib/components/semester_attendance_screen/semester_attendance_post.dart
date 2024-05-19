@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/components/dashboard_screen/no_classes_assigned_card.dart';
+import 'package:untitled/components/generate_csv/download_csv.dart';
 import 'package:untitled/components/global/next_screen.dart';
 import 'package:untitled/components/semester_attendance_screen/semester_attendance_functions.dart';
 import 'package:untitled/components/semester_attendance_screen/semester_attendance_list_item.dart';
 import 'package:untitled/models/subject_attendance_model.dart';
 import 'package:untitled/screens/nc_list_screen.dart';
-import 'dart:io';
 
+import 'package:path_provider/path_provider.dart';
+import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-
 import '../../screens/dc_list_screen.dart';
+import 'dart:io';
 
 class SemesterAttendanceLists extends StatefulWidget {
   final String subjectID;
@@ -38,26 +40,20 @@ class _SemesterAttendanceListsState extends State<SemesterAttendanceLists> {
     setState(() {
       fetchedList.sort((a, b) => a.rollNumber.compareTo(b.rollNumber));
       classAssignedList = fetchedList;
-
       isLoading = false; // Set loading to false when data is fetched
     });
   }
 
-  Future<void> createPDF() async {
-    final pdf = pw.Document();
-
-    pdf.addPage(
-      pw.Page(
-        build: (pw.Context context) => pw.Center(
-          child: pw.Text('Hello World!'),
-        ),
-      ),
-    );
-
-    final file = File('example.pdf');
-    await file.writeAsBytes(await pdf.save());
+  generateCSV(){
+    List<List<dynamic>> rows = [];
+    for (var attendance in classAssignedList) {
+      rows.add([
+        attendance.name,
+        attendance.rollNumber,
+        1,
+      ]);
+    }
   }
-
   @override
   Widget build(BuildContext context) {
     return isLoading
@@ -106,6 +102,8 @@ class _SemesterAttendanceListsState extends State<SemesterAttendanceLists> {
                       ),
                     ),
                   ),
+                  const SizedBox(width: 20),
+                  DownloadCSV(data: classAssignedList)
                 ],
               ),
               const SizedBox(height: 20),

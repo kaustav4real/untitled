@@ -85,7 +85,7 @@ class _SemesterScreenState extends State<SemesterScreen> {
         handleErrors(error.toString());
       }
     }
-
+    final width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.grey[200],
@@ -93,7 +93,7 @@ class _SemesterScreenState extends State<SemesterScreen> {
           elevation: 0,
           title: Text(
             '${widget.semester} Semester',
-            style: Theme.of(context).textTheme.titleMedium,
+            style: GoogleFonts.openSans(fontSize: width * 0.046),
           ),
           centerTitle: true,
         ),
@@ -107,7 +107,7 @@ class _SemesterScreenState extends State<SemesterScreen> {
                 const SizedBox(height: 30),
                 Text(
                   'Attendance as of ${getTodayDate()}',
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: GoogleFonts.openSans(fontSize: width * 0.046),
                 ),
                 const SizedBox(height: 20),
                 SemesterAttendanceLists(subjectID: widget.subjectID),
