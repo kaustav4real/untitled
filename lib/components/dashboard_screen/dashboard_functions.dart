@@ -9,8 +9,6 @@ const getSubjectsUrl = '$apiBaseUrl/teachers/details';
 
 Future<AllClassScheduleDTO> getSubjectsAssigned() async {
   UserLocalInfo info = getUserInfo();
-  List<ClassSchedule> ownSubjects = [];
-  List<ClassSchedule> assignedSubjects = [];
   try {
     final response = await http.get(
       Uri.parse('$getSubjectsUrl/${info.userName}'),

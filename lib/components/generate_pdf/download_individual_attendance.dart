@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/components/generate_csv/csv_function.dart';
+import 'package:untitled/components/generate_pdf/pdf_attendnace_api.dart';
 import 'package:untitled/models/subject_attendance_model.dart';
 
 class DownloadCSV extends StatelessWidget {
@@ -8,9 +8,10 @@ class DownloadCSV extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return TextButton(
         onPressed: () async {
-          await generateCSV(data);
+          await PdfAttendanceApi.generate(data);
         },
         child: const Text('Download CSV'));
   }

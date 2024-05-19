@@ -3,8 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:untitled/components/semester_attendance_screen/semester_attendance_post.dart';
 import 'package:untitled/helpers/date_functions.dart';
 
-import '../constants.dart';
-
 class SemesterScreenForViewingAttendance extends StatefulWidget {
   final String semester;
   final String subjectID;

@@ -11,7 +11,6 @@ import 'package:untitled/models/user_model.dart';
 import 'package:untitled/models/subject_attendance_model.dart';
 import 'package:untitled/screens/student_attendance_item_screen.dart';
 
-import '../components/dashboard_screen/no_classes_assigned_card.dart';
 import '../components/global/next_screen.dart';
 
 class TakeAttendanceScreen extends StatefulWidget {

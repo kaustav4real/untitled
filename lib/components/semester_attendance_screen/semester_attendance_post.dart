@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/components/dashboard_screen/no_classes_assigned_card.dart';
-import 'package:untitled/components/generate_csv/download_csv.dart';
+import 'package:untitled/components/generate_pdf/download_individual_attendance.dart';
 import 'package:untitled/components/global/next_screen.dart';
 import 'package:untitled/components/semester_attendance_screen/semester_attendance_functions.dart';
 import 'package:untitled/components/semester_attendance_screen/semester_attendance_list_item.dart';
 import 'package:untitled/models/subject_attendance_model.dart';
 import 'package:untitled/screens/nc_list_screen.dart';
-
-import 'package:path_provider/path_provider.dart';
-import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
 import '../../screens/dc_list_screen.dart';
-import 'dart:io';
 
 class SemesterAttendanceLists extends StatefulWidget {
   final String subjectID;
@@ -44,16 +39,6 @@ class _SemesterAttendanceListsState extends State<SemesterAttendanceLists> {
     });
   }
 
-  generateCSV(){
-    List<List<dynamic>> rows = [];
-    for (var attendance in classAssignedList) {
-      rows.add([
-        attendance.name,
-        attendance.rollNumber,
-        1,
-      ]);
-    }
-  }
   @override
   Widget build(BuildContext context) {
     return isLoading
@@ -61,50 +46,53 @@ class _SemesterAttendanceListsState extends State<SemesterAttendanceLists> {
             child: CircularProgressIndicator()) // Show loading indicator
         : Column(
             children: [
-              Row(
-                children: [
-                  Container(
-                    width: 100,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: const Color(0XFFe1af16),
-                    ),
-                    child: TextButton(
-                      onPressed: () {
-                        nextScreen(
-                            context, NCListScreen(dcList: classAssignedList));
-                      },
-                      child: const Text(
-                        'NC List',
-                        style: TextStyle(color: Colors.black),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: const Color(0XFFe1af16),
                       ),
-                    ),
-                  ),
-                  const SizedBox(width: 20),
-                  Container(
-                    width: 100,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: const Color(0XFF991111),
-                    ),
-                    child: TextButton(
-                      onPressed: () {
-                        nextScreen(
-                            context, DCListScreen(dcList: classAssignedList));
-                      },
-                      child: const Text(
-                        'DC List',
-                        style: TextStyle(
-                          color: Color(0XFFf3f6ed),
+                      child: TextButton(
+                        onPressed: () {
+                          nextScreen(
+                              context, NCListScreen(dcList: classAssignedList));
+                        },
+                        child: const Text(
+                          'NC List',
+                          style: TextStyle(color: Colors.black),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 20),
-                  DownloadCSV(data: classAssignedList)
-                ],
+                    const SizedBox(width: 20),
+                    Container(
+                      width: 100,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: const Color(0XFF991111),
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          nextScreen(
+                              context, DCListScreen(dcList: classAssignedList));
+                        },
+                        child: const Text(
+                          'DC List',
+                          style: TextStyle(
+                            color: Color(0XFFf3f6ed),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 20),
+                    DownloadCSV(data: classAssignedList)
+                  ],
+                ),
               ),
               const SizedBox(height: 20),
               Container(
