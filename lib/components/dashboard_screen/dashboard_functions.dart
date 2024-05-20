@@ -28,12 +28,9 @@ Future<AllClassScheduleDTO> getSubjectsAssigned() async {
       return AllClassScheduleDTO(
           ownSubjects: ownSubjects, assignedSubjects: assignedSubjects);
     } else {
-      print('Request failed with status: ${response.statusCode}');
       return AllClassScheduleDTO(ownSubjects: [], assignedSubjects: []);
     }
   } catch (error) {
-    // Handle exceptions that might occur during the HTTP request
-    print('Error fetching data: $error');
     return AllClassScheduleDTO(ownSubjects: [], assignedSubjects: []);
   }
 }

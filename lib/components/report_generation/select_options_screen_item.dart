@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/components/dashboard_screen/no_classes_assigned_card.dart';
 import 'package:untitled/components/generate_pdf/download_attendance_pdf.dart';
 import 'package:untitled/components/global/next_screen.dart';
 import 'package:untitled/components/semester_attendance_screen/semester_attendance_functions.dart';
-import 'package:untitled/components/semester_attendance_screen/semester_attendance_list_item.dart';
 import 'package:untitled/models/subject_attendance_model.dart';
 import 'package:untitled/screens/nc_list_screen.dart';
 import '../../screens/dc_list_screen.dart';
 
-class SemesterAttendanceLists extends StatefulWidget {
+class SemesterAttendanceListsItem extends StatefulWidget {
   final String subjectName;
   final String subjectID;
-  const SemesterAttendanceLists(
+  const SemesterAttendanceListsItem(
       {Key? key, required this.subjectID, required this.subjectName})
       : super(key: key);
 
   @override
-  State<SemesterAttendanceLists> createState() =>
-      _SemesterAttendanceListsState();
+  State<SemesterAttendanceListsItem> createState() =>
+      _SemesterAttendanceListsItemState();
 }
 
-class _SemesterAttendanceListsState extends State<SemesterAttendanceLists> {
+class _SemesterAttendanceListsItemState
+    extends State<SemesterAttendanceListsItem> {
   List<SubjectAttendanceModel> classAssignedList = [];
   bool isLoading = true;
 
@@ -86,7 +85,12 @@ class _SemesterAttendanceListsState extends State<SemesterAttendanceLists> {
                       child: TextButton(
                         onPressed: () {
                           nextScreen(
-                              context, DCListScreen(dcList: classAssignedList, subjectID: widget.subjectID,subjectName:widget.subjectName ,));
+                              context,
+                              DCListScreen(
+                                dcList: classAssignedList,
+                                subjectID: widget.subjectID,
+                                subjectName: widget.subjectName,
+                              ));
                         },
                         child: const Text(
                           'DC List',
@@ -102,26 +106,6 @@ class _SemesterAttendanceListsState extends State<SemesterAttendanceLists> {
                 ),
               ),
               const SizedBox(height: 20),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                padding: const EdgeInsets.all(15),
-                child: Column(
-                  children: classAssignedList.isEmpty
-                      ? [const NoAttendanceRecords()]
-                      : classAssignedList
-                          .map(
-                            (item) => SemesterAttendanceListItem(
-                              rollNumber: item.rollNumber,
-                              studentName: item.name,
-                              attendanceList: item.attendance,
-                            ),
-                          )
-                          .toList(),
-                ),
-              ),
             ],
           );
   }

@@ -32,3 +32,18 @@ class ViewAttendanceForASubjectPost extends StatelessWidget {
     );
   }
 }
+
+class ViewSubjectsForReportGeneration extends StatelessWidget {
+  final List<ClassSchedule> schedule;
+  const ViewSubjectsForReportGeneration({super.key, required this.schedule});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: schedule
+          .map((classAssignedItem) =>
+          ReportGenerationCardForASubject(schedule: classAssignedItem))
+          .toList(),
+    );
+  }
+}

@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:pdf/widgets.dart';
 import 'package:pdf/pdf.dart';
 import 'package:untitled/components/generate_pdf/pdf_api.dart';
-
 import '../../models/subject_attendance_model.dart';
 
 
@@ -28,7 +27,6 @@ class PdfAttendanceApi {
                 Divider(),
               ]);
             }
-
             return pages;
           },
         ),

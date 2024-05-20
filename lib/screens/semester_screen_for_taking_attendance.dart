@@ -14,13 +14,13 @@ import '../database/user_model_db__functions.dart';
 import '../models/user_model.dart';
 
 class SemesterScreen extends StatefulWidget {
-  final String semester;
-  final String subjectID;
+  final String semester, subjectID, subjectName;
   final bool proxy;
   const SemesterScreen(
       {super.key,
       required this.semester,
       required this.subjectID,
+        required this.subjectName,
       required this.proxy});
 
   @override
@@ -67,8 +67,6 @@ class _SemesterScreenState extends State<SemesterScreen> {
           body: httpBody,
         );
 
-        print(jsonDecode(response.body));
-
         if (response.statusCode == 200) {
           final jsonData = jsonDecode(response.body)['data'];
           reDirectOnSuccess(
@@ -81,7 +79,6 @@ class _SemesterScreenState extends State<SemesterScreen> {
           handleErrors('Unknown error has occurred');
         }
       } catch (error) {
-        print(error);
         handleErrors(error.toString());
       }
     }
@@ -110,7 +107,7 @@ class _SemesterScreenState extends State<SemesterScreen> {
                   style: GoogleFonts.openSans(fontSize: width * 0.046),
                 ),
                 const SizedBox(height: 20),
-                SemesterAttendanceLists(subjectID: widget.subjectID),
+                SemesterAttendanceLists(subjectID: widget.subjectID, subjectName: widget.subjectName,),
               ],
             ),
           ),

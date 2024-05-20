@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/components/main_navigation_screen/dashboard_item.dart';
 import 'package:untitled/components/main_navigation_screen/dashboard_list.dart';
+import 'package:untitled/components/report_generation/subject.dart';
 import 'package:untitled/screens/assign_proxy_screen.dart';
 import 'package:untitled/screens/subjects_for_attendance_view.dart';
 import 'package:untitled/screens/view_subject_screen.dart';
@@ -66,7 +67,7 @@ class MainNavigationScreen extends StatelessWidget {
                         id: 1,
                         icon: Icons.bar_chart,
                         name: 'Generate Report',
-                        child: const DashBoard(),
+                        child: const AllSubjectsForReportGeneration(),
                       ),
                     ),
                   ],

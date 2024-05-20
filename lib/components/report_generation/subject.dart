@@ -3,17 +3,17 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:untitled/components/dashboard_screen/classes_assigned_posts.dart';
 import 'package:untitled/components/dashboard_screen/dashboard_functions.dart';
 
-import 'package:untitled/components/global/padded_text.dart';
 import 'package:untitled/models/assigned_class_models.dart';
 
-class DashBoard extends StatefulWidget {
-  const DashBoard({super.key});
+class AllSubjectsForReportGeneration extends StatefulWidget {
+  const AllSubjectsForReportGeneration({super.key});
 
   @override
-  State<DashBoard> createState() => _DashBoardState();
+  State<AllSubjectsForReportGeneration> createState() =>
+      _AllSubjectsForReportGenerationState();
 }
 
-class _DashBoardState extends State<DashBoard> {
+class _AllSubjectsForReportGenerationState extends State<AllSubjectsForReportGeneration> {
   late AllClassScheduleDTO allClasses;
   bool isLoading = true; // Added loading state
 
@@ -56,18 +56,11 @@ class _DashBoardState extends State<DashBoard> {
                   children: [
                     const SizedBox(height: 30),
                     allClasses.ownSubjects.isNotEmpty
-                        ? ClassesAssignedPost(schedule: allClasses.ownSubjects)
+                        ? ViewSubjectsForReportGeneration(
+                            schedule: allClasses.ownSubjects)
                         : const Center(
                             child: Text('No classes hae been assigned to you'),
                           ),
-                    const SizedBox(height: 30),
-                    allClasses.assignedSubjects.isNotEmpty
-                        ? const PaddedText(text: 'PROXY CLASSES')
-                        : const SizedBox.shrink(),
-                    const SizedBox(height: 30),
-                    ClassesAssignedPost(
-                      schedule: allClasses.assignedSubjects,
-                    )
                   ],
                 ),
         ),

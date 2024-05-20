@@ -56,14 +56,8 @@ class _TakeAttendanceScreenState extends State<TakeAttendanceScreen> {
 
         setState(() {
           fetchedList = attendanceList;
-          // fetchedList = [SubjectAttendanceModel(
-          //   name: 'Kla',
-          //   rollNumber: 'Kla',
-          //   attendance: [AttendanceDetailModel(date: 'kla', present: true, classNumber: 1)]
-          // )];
           loading = false;
         });
-        print(fetchedList);
       } else {
         handleErrors('Failed to fetch attendance data');
       }

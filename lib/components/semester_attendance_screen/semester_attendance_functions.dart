@@ -25,13 +25,9 @@ Future<List<SubjectAttendanceModel>> getSemesterAttendance(String subjectID) asy
 
       return attendanceList;
     } else {
-      // If the request was not successful, handle the error accordingly
-      print('Request failed with status: ${response.statusCode}');
       return []; // or throw an exception
     }
   } catch (error) {
-    // Handle exceptions that might occur during the HTTP request
-    print('Error fetching data: $error');
     return []; // or throw an exception
   }
 }

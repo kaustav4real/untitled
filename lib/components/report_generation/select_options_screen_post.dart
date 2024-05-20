@@ -1,25 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:untitled/components/semester_attendance_screen/semester_attendance_post.dart';
+import 'package:untitled/components/report_generation/select_options_screen_item.dart';
 import 'package:untitled/helpers/date_functions.dart';
 
-class SemesterScreenForViewingAttendance extends StatefulWidget {
+class SelectReportGenerationOption extends StatefulWidget {
   final String semester;
   final String subjectID;
   final String subjectName;
-  const SemesterScreenForViewingAttendance(
-      {super.key,
-      required this.semester,
-      required this.subjectID,
-      required this.subjectName});
+  const SelectReportGenerationOption(
+      {super.key, required this.semester, required this.subjectID, required this.subjectName});
 
   @override
-  State<SemesterScreenForViewingAttendance> createState() =>
-      _SemesterScreenForViewingAttendanceState();
+  State<SelectReportGenerationOption> createState() =>
+      _SelectReportGenerationOptionState();
 }
 
-class _SemesterScreenForViewingAttendanceState
-    extends State<SemesterScreenForViewingAttendance> {
+class _SelectReportGenerationOptionState
+    extends State<SelectReportGenerationOption> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -46,10 +43,7 @@ class _SemesterScreenForViewingAttendanceState
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: 20),
-                SemesterAttendanceLists(
-                  subjectID: widget.subjectID,
-                  subjectName: widget.subjectName,
-                ),
+                SemesterAttendanceListsItem(subjectID: widget.subjectID, subjectName: widget.subjectName,),
               ],
             ),
           ),
