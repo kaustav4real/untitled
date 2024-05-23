@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/components/generate_csv/generate_csv_btn.dart';
 import 'package:untitled/components/generate_pdf/download_nc_pdf_btn.dart';
 import '../components/semester_attendance_screen/semester_attendance_list_item.dart';
 import '../models/subject_attendance_model.dart';
@@ -63,6 +64,8 @@ class _NCListScreenState extends State<NCListScreen> {
                     subjectID: widget.subjectID,
                     message: 'Non-Collegiate List',
                 ),
+                GenerateCSV(data: filteredList),
+
                 Column(
                   children: filteredList.isEmpty
                       ? [const Text('No student is being discollegiated.')]

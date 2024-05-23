@@ -25,7 +25,7 @@ class _DCListScreenState extends State<DCListScreen> {
             (student.attendance.where((detail) => detail.present).length /
                 totalClasses) *
                 100;
-        return attendancePercentage < 75 && attendancePercentage >= 65;
+        return attendancePercentage <65;
       } else {
         // If there are no classes, consider the student for filtering
         return true;
