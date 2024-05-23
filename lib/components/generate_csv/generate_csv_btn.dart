@@ -6,7 +6,8 @@ import '../../models/subject_attendance_model.dart';
 
 class DownloadAttendanceCSV extends StatelessWidget {
   final List<SubjectAttendanceModel> data;
-  const DownloadAttendanceCSV({super.key, required this.data});
+  final String label;
+  const DownloadAttendanceCSV({super.key, required this.data, required this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +26,11 @@ class DownloadAttendanceCSV extends StatelessWidget {
           child:  Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
-                'CSV',
+              Text(
+                '${label}CSV',
                 style: TextStyle(
-                  color: Color(0XFFf3f6ed),
+                  color: const Color(0XFFf3f6ed),
+                  fontSize: width*0.032,
                 ),
               ),
               Icon(Icons.download, color: Colors.white,size: width*0.06,)

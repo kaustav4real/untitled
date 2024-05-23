@@ -67,7 +67,7 @@ class _NCListScreenState extends State<NCListScreen> {
                       subjectID: widget.subjectID,
                       message: 'Non-Collegiate List',
                     ),
-                    DownloadAttendanceCSV(data: filteredList),
+                    DownloadAttendanceCSV(data: filteredList, label: '',),
                   ],
                 ),
                 const SizedBox(height: 20),

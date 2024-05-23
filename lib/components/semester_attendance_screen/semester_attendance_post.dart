@@ -97,7 +97,7 @@ class _SemesterAttendanceListsState extends State<SemesterAttendanceLists> {
                       ),
                     ),
                     const SizedBox(width: 20),
-                    DownloadAttendancePdf(data: classAssignedList)
+                    DownloadAttendancePdf(data: classAssignedList, label: '',),
                   ],
                 ),
               ),

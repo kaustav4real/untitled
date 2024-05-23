@@ -33,7 +33,7 @@ Future<void> generateCSV(List<SubjectAttendanceModel> data) async {
 
     // Iterate over sorted headers
     for (var header in headerList) {
-      row.add(attendanceMap[header] ?? "Absent");
+      row.add(attendanceMap[header] ?? "");
     }
 
     csvData.add(row);
@@ -41,16 +41,12 @@ Future<void> generateCSV(List<SubjectAttendanceModel> data) async {
 
   String csv = const ListToCsvConverter().convert(csvData);
 
-  // Get temporary directory
   final String tempDirectory = (await getTemporaryDirectory()).path;
   final String tempFileName = DateTime.now().toString();
   final path = '$tempDirectory/attendance_report_$tempFileName.csv';
   final File file = File(path);
 
   await file.writeAsString(csv);
-  print("CSV report generated temporarily at: $path");
-
-  print(csv);
 
   // Open the temporary file
   await OpenFile.open(path);

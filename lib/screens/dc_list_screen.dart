@@ -66,7 +66,7 @@ class _DCListScreenState extends State<DCListScreen> {
                       subjectID: widget.subjectID,
                       message: 'Dis-Collegiate List',
                     ),
-                    DownloadAttendanceCSV(data: filteredList)
+                    DownloadAttendanceCSV(data: filteredList, label: '',)
                   ],
                 ),
                 const SizedBox(height: 20),
