@@ -58,14 +58,19 @@ class _NCListScreenState extends State<NCListScreen> {
             padding: const EdgeInsets.all(15),
             child: Column(
               children: [
-                DownloadNCListPdf(
-                    data: filteredList,
-                    subjectName: widget.subjectName,
-                    subjectID: widget.subjectID,
-                    message: 'Non-Collegiate List',
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    DownloadNCListPdf(
+                      data: filteredList,
+                      subjectName: widget.subjectName,
+                      subjectID: widget.subjectID,
+                      message: 'Non-Collegiate List',
+                    ),
+                    DownloadAttendanceCSV(data: filteredList),
+                  ],
                 ),
-                GenerateCSV(data: filteredList),
-
+                const SizedBox(height: 20),
                 Column(
                   children: filteredList.isEmpty
                       ? [const Text('No student is being discollegiated.')]

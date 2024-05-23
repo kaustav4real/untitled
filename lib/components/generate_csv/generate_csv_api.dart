@@ -17,7 +17,10 @@ Future<void> generateCSV(List<SubjectAttendanceModel> data) async {
     }
   }
 
+  // Convert Set to List and sort it
   List<String> headerList = headers.toList();
+  headerList.sort();
+
   csvData[0].addAll(headerList);
 
   // Add student data rows
@@ -25,11 +28,12 @@ Future<void> generateCSV(List<SubjectAttendanceModel> data) async {
     List<String> row = ["${subject.rollNumber.toString()}\t", subject.name]; // Enclose roll number in double quotes
     Map<String, String> attendanceMap = {
       for (var detail in subject.attendance)
-        "${detail.date}-class${detail.classNumber}": detail.present ? "present" : "absent"
+        "${detail.date}-class${detail.classNumber}": detail.present ? "Present" : "Absent"
     };
 
+    // Iterate over sorted headers
     for (var header in headerList) {
-      row.add(attendanceMap[header] ?? "absent");
+      row.add(attendanceMap[header] ?? "Absent");
     }
 
     csvData.add(row);
@@ -39,7 +43,8 @@ Future<void> generateCSV(List<SubjectAttendanceModel> data) async {
 
   // Get temporary directory
   final String tempDirectory = (await getTemporaryDirectory()).path;
-  final path = '$tempDirectory/attendance_report.csv';
+  final String tempFileName = DateTime.now().toString();
+  final path = '$tempDirectory/attendance_report_$tempFileName.csv';
   final File file = File(path);
 
   await file.writeAsString(csv);

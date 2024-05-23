@@ -17,7 +17,7 @@ class DownloadNCListPdf extends StatelessWidget {
       height: 50,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Colors.green,
+        color: Colors.blue,
       ),
       child: TextButton(
           onPressed: () async {

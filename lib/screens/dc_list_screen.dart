@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/components/generate_csv/generate_csv_btn.dart';
 import '../components/generate_pdf/download_nc_pdf_btn.dart';
 import '../components/semester_attendance_screen/semester_attendance_list_item.dart';
 import '../models/subject_attendance_model.dart';
@@ -25,7 +26,7 @@ class _DCListScreenState extends State<DCListScreen> {
             (student.attendance.where((detail) => detail.present).length /
                 totalClasses) *
                 100;
-        return attendancePercentage <65;
+        return attendancePercentage < 65;
       } else {
         // If there are no classes, consider the student for filtering
         return true;
@@ -56,12 +57,19 @@ class _DCListScreenState extends State<DCListScreen> {
             padding: const EdgeInsets.all(15),
             child: Column(
               children: [
-                DownloadNCListPdf(
-                  data: filteredList,
-                  subjectName: widget.subjectName,
-                  subjectID: widget.subjectID,
-                  message: 'Dis-Collegiate List',
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    DownloadNCListPdf(
+                      data: filteredList,
+                      subjectName: widget.subjectName,
+                      subjectID: widget.subjectID,
+                      message: 'Dis-Collegiate List',
+                    ),
+                    DownloadAttendanceCSV(data: filteredList)
+                  ],
                 ),
+                const SizedBox(height: 20),
                 Column(
                   children: filteredList.isEmpty
                       ? [const Text('No student is being discollegiated.')]
