@@ -3,8 +3,7 @@ import 'package:untitled/components/global/next_screen.dart';
 import 'package:untitled/components/report_generation/select_options_screen_post.dart';
 import 'package:untitled/models/assigned_class_models.dart';
 import 'package:untitled/screens/semester_screen_for_taking_attendance.dart';
-
-import '../../screens/screen_for_viewing_attendance_per_subject.dart';
+import 'package:untitled/screens/view_attendance_by_date_screen.dart';
 
 class ClassAssignedCard extends StatelessWidget {
   final ClassSchedule schedule;
@@ -144,12 +143,9 @@ class CardForViewingAttendanceOnly extends StatelessWidget {
                 ),
                 onPressed: () {
                   nextScreen(
-                      context,
-                      SemesterScreenForViewingAttendance(
-                        semester: schedule.semester.toString(),
-                        subjectID: schedule.subjectId,
-                        subjectName: schedule.subjectName,
-                      ));
+                    context,
+                    ViewAttendanceByDateScreen(subjectID: schedule.subjectId),
+                  );
                 },
                 icon: const Icon(
                   Icons.arrow_forward,
@@ -164,7 +160,6 @@ class CardForViewingAttendanceOnly extends StatelessWidget {
     );
   }
 }
-
 
 class ReportGenerationCardForASubject extends StatelessWidget {
   final ClassSchedule schedule;

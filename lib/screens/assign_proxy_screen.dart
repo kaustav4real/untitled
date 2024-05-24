@@ -97,8 +97,7 @@ class _AssignProxyScreenState extends State<AssignProxyScreen> {
     });
   }
 
-
-  handleSuccessfulProxyAssignment(String message){
+  handleSuccessfulProxyAssignment(String message) {
     showCustomSnackBar(context, message);
   }
 
@@ -127,7 +126,7 @@ class _AssignProxyScreenState extends State<AssignProxyScreen> {
     );
     // Handle response
 
-    if(result.statusCode==200){
+    if (result.statusCode == 200) {
       handleErrorMessages(result.body);
     }
   }
@@ -179,14 +178,14 @@ class _AssignProxyScreenState extends State<AssignProxyScreen> {
                       PopupMenuButton<String>(
                         onSelected: (String value) {
                           setState(() {
-                            subjectName= value;
+                            subjectName = value;
                           });
                         },
                         itemBuilder: (BuildContext context) {
                           return subjects.map((SubjectModelForProxy subject) {
                             return PopupMenuItem<String>(
-                              onTap: (){
-                                subjectID=subject.id;
+                              onTap: () {
+                                subjectID = subject.id;
                               },
                               value: subject.name.toString(),
                               child: Text(subject.name.toString()),
@@ -194,7 +193,7 @@ class _AssignProxyScreenState extends State<AssignProxyScreen> {
                           }).toList();
                         },
                         child: ListTile(
-                          title: Text(subjectName?? 'Select Subject'),
+                          title: Text(subjectName ?? 'Select Subject'),
                           trailing: const Icon(Icons.arrow_drop_down),
                         ),
                       ),
@@ -208,12 +207,12 @@ class _AssignProxyScreenState extends State<AssignProxyScreen> {
                           return teachers.map((TeacherModelForProxy teacher) {
                             return PopupMenuItem<String>(
                               value: teacher.name.toString(),
-                              onTap: (){
-                                teacherID=teacher.id;
+                              onTap: () {
+                                teacherID = teacher.id;
                               },
-                              child:  Text(
-                                  teacher.name.toString(),
-                                ),
+                              child: Text(
+                                teacher.name.toString(),
+                              ),
                             );
                           }).toList();
                         },
@@ -241,10 +240,14 @@ class _AssignProxyScreenState extends State<AssignProxyScreen> {
                                   Icons.calendar_month_rounded,
                                   size: MediaQuery.of(context).size.width * 0.1,
                                 ),
-                                Text(_dateOfBirthController.text, style: GoogleFonts.openSans(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: width*0.04
-                                ),)
+                                Text(
+                                  _dateOfBirthController.text,
+                                  style: GoogleFonts.openSans(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: width * 0.04,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                )
                               ],
                             ),
                           ),
