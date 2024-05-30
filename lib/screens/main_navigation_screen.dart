@@ -19,7 +19,7 @@ class MainNavigationScreen extends StatelessWidget {
           preferredSize: Size(MediaQuery.of(context).size.width, 75),
           child: const DashBoardAppBar(),
         ),
-        backgroundColor: Colors.grey[300],
+        backgroundColor: Colors.grey[200],
         body: SingleChildScrollView(
           child: Column(
             children: [

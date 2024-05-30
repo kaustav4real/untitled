@@ -15,6 +15,17 @@ class DashBoardItem extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
+          boxShadow: const [
+            BoxShadow(
+              color: Color.fromRGBO(100, 100, 111, 0.2),
+              blurRadius: 29,
+              spreadRadius: 0,
+              offset: Offset(
+                0,
+                7,
+              ),
+            ),
+          ],
           color: Colors.white,
         ),
         height: MediaQuery.of(context).size.width * 0.4 * 0.6,

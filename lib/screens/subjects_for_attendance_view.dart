@@ -47,7 +47,7 @@ class _SubjectsForAttendanceViewState extends State<SubjectsForAttendanceView> {
             ),
           ),
         ),
-        backgroundColor: Colors.grey[300],
+        backgroundColor: Colors.grey[200],
         body: SingleChildScrollView(
           child: isLoading
               ? const Center(child: CircularProgressIndicator())
@@ -58,8 +58,8 @@ class _SubjectsForAttendanceViewState extends State<SubjectsForAttendanceView> {
                     allClasses.ownSubjects.isNotEmpty
                         ? ViewAttendanceForASubjectPost(schedule: allClasses.ownSubjects)
                         : const Center(
-                            child: Text('No classes hae been assigned to you'),
-                          ),
+                            child: Text('No classes has  been assigned to you'),
+                            ),
                                       ],
                 ),
         ),

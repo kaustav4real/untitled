@@ -40,14 +40,14 @@ class _DashBoardState extends State<DashBoard> {
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            'Your classes',
+            'Take Attendance',
             style: GoogleFonts.openSans(
               fontSize: MediaQuery.of(context).size.width * 0.046,
               fontWeight: FontWeight.w500,
             ),
           ),
         ),
-        backgroundColor: Colors.grey[300],
+        backgroundColor: Colors.grey[200],
         body: SingleChildScrollView(
           child: isLoading
               ? const Center(child: CircularProgressIndicator())
@@ -58,7 +58,7 @@ class _DashBoardState extends State<DashBoard> {
                     allClasses.ownSubjects.isNotEmpty
                         ? ClassesAssignedPost(schedule: allClasses.ownSubjects)
                         : const Center(
-                            child: Text('No classes hae been assigned to you'),
+                            child: Text('No classes has been assigned to you'),
                           ),
                     const SizedBox(height: 30),
                     allClasses.assignedSubjects.isNotEmpty

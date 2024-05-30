@@ -36,15 +36,16 @@ class _LoginFormState extends State<LoginForm> {
     setState(() {
       loading=true;
     });
+
     final Map<String, dynamic> data = {
-      'username': emailController.text,
+      'username': emailController.text.replaceAll(' ', ''),
       'password': passwordController.text,
     };
 
     final response = await http.post(
       Uri.parse('$apiBaseUrl/auth/authenticate'),
       body: jsonEncode(data),
-      headers: {'Content-Type': 'application/json'},
+        headers: {'Content-Type': 'application/json'},
     );
 
     setState(() {

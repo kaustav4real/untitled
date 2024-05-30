@@ -47,10 +47,11 @@ class _AssignProxyScreenState extends State<AssignProxyScreen> {
     if (result.statusCode == 200) {
       final body = jsonDecode(result.body);
       setState(() {
+
         teachers = (body['teachers'] as List)
             .map((e) => TeacherModelForProxy.fromJson(e))
+            .where((teacher) => teacher.name != userLocalInfo.fullName)
             .toList();
-
         subjects = (body['subjects'] as List)
             .map((e) => SubjectModelForProxy.fromJson(e))
             .toList();
@@ -150,7 +151,7 @@ class _AssignProxyScreenState extends State<AssignProxyScreen> {
           ),
           centerTitle: true,
         ),
-        backgroundColor: Colors.grey[300],
+        backgroundColor: Colors.grey[200],
         bottomSheet: SizedBox(
           height: width * 0.2,
           width: width,
